@@ -1,10 +1,15 @@
+using PokeApiNet;
 using WebApp.Components;
+using WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddSingleton(new PokeApiClient());
+builder.Services.AddScoped<PokeApiService>();
 
 var app = builder.Build();
 

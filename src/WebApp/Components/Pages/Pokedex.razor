@@ -1,0 +1,42 @@
+﻿@page "/pokedex"
+@using PokeApiNet
+@using WebApp.Services
+@inject PokeApiService PokeApiService
+@rendermode InteractiveServer
+
+<h3>Pokedex</h3>
+
+@if (PokemonList == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="pokemon-grid">
+        @foreach (var pokemon in PokemonList)
+        {
+            <div class="pokemon-card" @onclick="() => NavigateToPokemon(pokemon.Name)">
+                <img src="@pokemon.Sprites.FrontDefault" alt="@pokemon.Name" />
+                <p>@pokemon.Name</p>
+            </div>
+        }
+    </div>
+}
+@code {
+    const int ItemsPerPage = 12;
+    private List<Pokemon> PokemonList;
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        PokemonList = await PokeApiService.GetAllPokemonAsync(12, 0);
+    }
+
+    private void NavigateToPokemon(string name)
+    {
+        NavigationManager.NavigateTo($"/pokedex/{name}");
+    }
+
+}

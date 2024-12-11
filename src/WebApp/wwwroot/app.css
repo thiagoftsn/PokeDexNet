@@ -58,3 +58,32 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+.pokemon-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-around;
+    margin: 1rem;
+}
+
+.pokemon-card {
+    flex: 1 1 calc(25% - 1rem);
+    width: 150px;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .pokemon-card:hover {
+        transform: scale(1.1);
+    }
+
+    .pokemon-card img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
