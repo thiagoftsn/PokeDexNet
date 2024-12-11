@@ -87,3 +87,11 @@ h1:focus {
         height: 100px;
         object-fit: cover;
     }
+
+.pokemon-id {
+    color: #919191;
+}
+
+.pokemon-name {
+    font-weight: bold;
+}

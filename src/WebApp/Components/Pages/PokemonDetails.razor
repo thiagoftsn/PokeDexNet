@@ -1,0 +1,33 @@
+﻿@page "/pokedex/{name}"
+@inject PokeApiService PokeApiService
+@rendermode InteractiveServer
+
+@if (pokemon == null)
+{
+    <div class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <h1>@pokemon.Name.ToUpper()</h1>
+    <h2>@FormatPokemonId(pokemon.Id)</h2>
+}
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+    private Pokemon pokemon;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        pokemon = await PokeApiService.GetPokemonAsync(Name);
+    }
+
+    private string FormatPokemonId(int id)
+    {
+        return $"#{id.ToString("D4")}";
+    }
+}

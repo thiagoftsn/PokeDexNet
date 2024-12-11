@@ -1,6 +1,4 @@
-﻿using PokeApiNet;
-
-namespace WebApp.Services
+﻿namespace WebApp.Services
 {
     public class PokeApiService
     {
@@ -23,6 +21,13 @@ namespace WebApp.Services
             }
 
             return pokemonList;
+        }
+
+        public async Task<Pokemon> GetPokemonAsync(string name)
+        {
+            var pokemon = await _pokeApiClient.GetResourceAsync<Pokemon>(name);
+
+            return pokemon;
         }
     }
 }

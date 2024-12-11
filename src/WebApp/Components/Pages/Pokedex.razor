@@ -1,6 +1,5 @@
 ﻿@page "/pokedex"
-@using PokeApiNet
-@using WebApp.Services
+
 @inject PokeApiService PokeApiService
 @rendermode InteractiveServer
 
@@ -8,16 +7,26 @@
 
 @if (PokemonList == null)
 {
-    <p>Loading...</p>
+    <div class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 }
 else
 {
-    <div class="pokemon-grid">
+    <div class="row row-cols-1 row-cols-md-5 g-4">
         @foreach (var pokemon in PokemonList)
         {
-            <div class="pokemon-card" @onclick="() => NavigateToPokemon(pokemon.Name)">
-                <img src="@pokemon.Sprites.FrontDefault" alt="@pokemon.Name" />
-                <p>@pokemon.Name</p>
+            <div class="col">
+                <div class="card" >
+                    <img src="@pokemon.Sprites.FrontDefault" class="card-img-top" alt="@pokemon.Name" />
+                    <div class="card-body text-center">
+                        <h6 class="card-title pokemon-id">@Helper.FormatPokemonId(pokemon.Id)</h6>
+                        <h5 class="card-text pokemon-name">@Helper.Capitalize(pokemon.Name)</h5>
+                        <button class="btn btn-primary" @onclick="() => NavigateToPokemon(pokemon.Name)">View Details</button>
+                    </div>
+                </div>
             </div>
         }
     </div>
